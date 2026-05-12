@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 from datetime import timedelta
 
@@ -11,10 +12,22 @@ import templates as T
 router = APIRouter()
 
 
+def _database_error_response() -> HTMLResponse:
+    html = T.render(
+        T.LOGIN_TMPL,
+        CSS=T.CSS,
+        error="Database is not connected. Check DATABASE_URL in Render environment variables.",
+    )
+    return HTMLResponse(html, status_code=503)
+
+
 @router.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request, db: Session = Depends(get_db)):
-    if get_current_admin(request, db):
-        return RedirectResponse("/dashboard", 302)
+    try:
+        if get_current_admin(request, db):
+            return RedirectResponse("/dashboard", 302)
+    except SQLAlchemyError:
+        return _database_error_response()
     html = T.render(T.LOGIN_TMPL, CSS=T.CSS, error="")
     return HTMLResponse(html)
 
@@ -26,7 +39,10 @@ async def login(
     password: str = Form(...),
     db: Session = Depends(get_db),
 ):
-    admin = authenticate_admin(db, username, password)
+    try:
+        admin = authenticate_admin(db, username, password)
+    except SQLAlchemyError:
+        return _database_error_response()
     if not admin:
         html = T.render(T.LOGIN_TMPL, CSS=T.CSS, error="Invalid username or password")
         return HTMLResponse(html, status_code=401)

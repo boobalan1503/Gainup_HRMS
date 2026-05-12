@@ -321,7 +321,7 @@ LOGIN_TMPL = """<!DOCTYPE html>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Login – AttendPro HRMS</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-{{ CSS }}
+{{ CSS|safe }}
 <style>
 body{display:flex;min-height:100vh}
 .login-left{flex:1;background:#0F172A;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:50px 36px;position:relative;overflow:hidden}
