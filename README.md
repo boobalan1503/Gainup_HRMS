@@ -21,6 +21,19 @@ Example:
 DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@YOUR_SUPABASE_HOST:5432/postgres?sslmode=require
 ```
 
+If your password contains special URL characters, encode them before pasting the value into Render. For example, `@` must become `%40`.
+
+```text
+Bad : postgresql://postgres:Gainup@hrms@db.example.supabase.co:5432/postgres
+Good: postgresql://postgres:Gainup%40hrms@db.example.supabase.co:5432/postgres?sslmode=require
+```
+
+If Render still cannot connect to the direct Supabase host, use the Supabase pooler connection string instead:
+
+```text
+Supabase Dashboard -> Connect -> Transaction pooler or Session pooler
+```
+
 The app creates required tables on startup and seeds the first admin account from:
 
 ```env
