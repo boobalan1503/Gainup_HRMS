@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: gainup-hrms
+    runtime: python
+    region: singapore          # closest to India
+    plan: free                 # free tier — upgrade anytime
+    branch: main
+
+    buildCommand: pip install -r requirements.txt
+
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+
+    healthCheckPath: /
+
+    envVars:
+      - key: DATABASE_URL
+        sync: false            # set manually in Render dashboard (paste Supabase URL)
+
+      - key: SECRET_KEY
+        generateValue: true    # Render auto-generates a secure random value
+
+      - key: ADMIN_USERNAME
+        value: admin
+
+      - key: ADMIN_PASSWORD
+        sync: false            # set your own secure password in Render dashboard
+
+      - key: ADMIN_EMAIL
+        value: admin@company.com
+
+      - key: PYTHON_VERSION
+        value: 3.11.0
