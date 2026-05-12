@@ -4,10 +4,11 @@ import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 
 from database import Base, engine
 import models  # noqa: F401 - registers all ORM models
-from routes import attendance, auth, dashboard, employees, salary
+from routes import admin, attendance, auth, dashboard, employees, salary
 
 
 logger = logging.getLogger("gainup_hrms")
@@ -36,8 +37,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="AttendPro HRMS",
-    description="Employee Attendance & Salary Management System",
+    title="Gainup Engineers HRMS",
+    description="Gainup Engineers employee attendance and payroll management system",
     version="1.0.0",
     lifespan=lifespan,
     docs_url="/api/docs",
@@ -52,7 +53,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 app.include_router(auth.router)
+app.include_router(admin.router)
 app.include_router(dashboard.router)
 app.include_router(employees.router)
 app.include_router(attendance.router)

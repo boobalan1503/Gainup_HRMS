@@ -33,7 +33,8 @@ a{text-decoration:none;color:inherit}
 .sidebar.collapsed .nav-item{justify-content:center;padding:12px 0}
 .sidebar-header{padding:18px 14px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.07)}
 .brand{display:flex;align-items:center;gap:10px;overflow:hidden}
-.brand-icon{width:36px;height:36px;background:#6C63FF;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0}
+.brand-logo{width:42px;height:42px;border-radius:8px;object-fit:contain;background:#fff;padding:3px;flex-shrink:0}
+.brand-icon{width:36px;height:36px;background:#0D5E93;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0}
 .brand-name{display:block;font-weight:700;font-size:15px;color:#fff}
 .brand-sub{display:block;font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.4px}
 .toggle-btn{background:rgba(255,255,255,.07);border:none;cursor:pointer;color:rgba(255,255,255,.45);width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
@@ -67,7 +68,8 @@ a{text-decoration:none;color:inherit}
 .topbar-right{display:flex;align-items:center;gap:14px}
 .date-pill{display:flex;align-items:center;gap:6px;font-size:11px;color:#64748B;background:#fff;padding:5px 11px;border-radius:20px;border:1px solid #E2E8F0}
 .date-pill i{color:#6C63FF}
-.adm-badge{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid #E2E8F0;padding:4px 11px 4px 4px;border-radius:20px;font-size:12px;font-weight:600}
+.adm-badge{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid #E2E8F0;padding:4px 11px 4px 4px;border-radius:20px;font-size:12px;font-weight:600;transition:.18s}
+.adm-badge:hover{border-color:#0D5E93;color:#0D5E93;box-shadow:0 4px 14px rgba(13,94,147,.12)}
 .adm-sm{width:24px;height:24px;background:linear-gradient(135deg,#6C63FF,#FF6584);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
 
 /* Content */
@@ -80,14 +82,14 @@ a{text-decoration:none;color:inherit}
 @keyframes sd{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 
 /* Cards */
-.card{background:#fff;border-radius:14px;padding:22px;box-shadow:0 4px 22px rgba(108,99,255,.07);border:1px solid rgba(226,232,240,.5)}
+.card{background:#fff;border-radius:8px;padding:22px;box-shadow:0 4px 22px rgba(13,94,147,.07);border:1px solid rgba(226,232,240,.7)}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 .card-title{font-size:14px;font-weight:700}
 .card-sub{font-size:11px;color:#94A3B8;margin-top:2px}
 
 /* Stat Cards */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin-bottom:24px}
-.stat-card{background:#fff;border-radius:14px;padding:20px 22px;box-shadow:0 4px 22px rgba(108,99,255,.07);border:1px solid rgba(226,232,240,.5);display:flex;align-items:center;gap:16px;transition:.22s;position:relative;overflow:hidden}
+.stat-card{background:#fff;border-radius:8px;padding:20px 22px;box-shadow:0 4px 22px rgba(13,94,147,.07);border:1px solid rgba(226,232,240,.7);display:flex;align-items:center;gap:16px;transition:.22s;position:relative;overflow:hidden}
 .stat-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(108,99,255,.13)}
 .stat-icon{width:50px;height:50px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
 .si-purple{background:#EEF0FF;color:#6C63FF} .si-green{background:#ECFDF5;color:#00C48C}
@@ -207,10 +209,30 @@ select.fc{cursor:pointer}
 code{background:#F8F9FE;padding:2px 7px;border-radius:4px;font-size:11px;color:#6C63FF}
 
 @media(max-width:768px){
-  .sidebar{transform:translateX(-100%)}.sidebar.mob-open{transform:translateX(0)}
+  html{font-size:13px}
+  body{display:block;background:#F7FAFC}
+  .sidebar{transform:translateX(-100%);width:min(82vw,300px);box-shadow:14px 0 38px rgba(15,23,42,.22)}
+  .sidebar.mob-open{transform:translateX(0)}
   .main-content{margin-left:0!important}.mob-btn{display:flex!important}
-  .content{padding:14px}.topbar{padding:0 14px}
-  .stats-grid{grid-template-columns:repeat(2,1fr)}.row-2,.row-3{grid-template-columns:1fr}
+  .content{padding:14px}.topbar{padding:0 12px;height:58px}
+  .topbar-right{gap:8px}.date-pill{display:none}.adm-badge span{display:none}
+  .pg-title h1{font-size:15px}.breadcrumb{display:none}
+  .stats-grid{grid-template-columns:1fr;gap:12px}.row-2,.row-3{grid-template-columns:1fr;gap:12px}
+  .card,.stat-card{padding:14px;border-radius:8px}
+  .card-header{align-items:flex-start;gap:10px;flex-wrap:wrap}
+  .qa-grid{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr}
+  .search-wrap{max-width:none;width:100%}
+  .tbl-wrap{margin:0 -14px;border-radius:0}
+  table{min-width:720px;font-size:12px}
+  thead th,tbody td{padding:10px 12px}
+  .slip-hdr,.slip-body{padding:18px}
+}
+@media(max-width:480px){
+  .qa-grid{grid-template-columns:1fr}
+  .stat-val{font-size:21px}
+  .btn{width:100%;justify-content:center}
+  .tbl-wrap .btn{width:auto}
 }
 @media print{
   .sidebar,.topbar,.btn,.alert,.no-print{display:none!important}
@@ -265,7 +287,7 @@ def _layout(body: str, active: str, admin_username: str,
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>{page_title} – AttendPro</title>
+<title>{page_title} - Gainup Engineers HRMS</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 {CSS}
 </head>
@@ -273,8 +295,8 @@ def _layout(body: str, active: str, admin_username: str,
 <aside class="sidebar" id="sb">
   <div class="sidebar-header">
     <div class="brand">
-      <div class="brand-icon"><i class="fas fa-building"></i></div>
-      <div class="brand-text"><span class="brand-name">AttendPro</span><span class="brand-sub">HRMS System</span></div>
+      <img class="brand-logo" src="/static/gainup_engineers_logo.jpg" alt="Gainup Engineers"/>
+      <div class="brand-text"><span class="brand-name">Gainup HRMS</span><span class="brand-sub">Engineers Operations</span></div>
     </div>
     <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-chevron-left" id="tg-ic"></i></button>
   </div>
@@ -287,6 +309,8 @@ def _layout(body: str, active: str, admin_username: str,
     {nav('/attendance/history','history','Att. History','attendance-history')}
     <div class="nav-section">Payroll</div>
     {nav('/salary','money-bill-wave','Salary','salary')}
+    <div class="nav-section">Admin</div>
+    {nav('/admin/users','user-shield','Users','admin-users')}
   </nav>
   <div class="sidebar-footer">
     <div class="adm-info">
@@ -304,7 +328,7 @@ def _layout(body: str, active: str, admin_username: str,
     </div>
     <div class="topbar-right">
       <div class="date-pill"><i class="fas fa-calendar-alt"></i><span id="cur-date"></span></div>
-      <div class="adm-badge"><div class="adm-sm">{av}</div><span>{admin_username}</span></div>
+      <a href="/admin/users" class="adm-badge" title="Manage users"><div class="adm-sm">{av}</div><span>{admin_username}</span></a>
     </div>
   </header>
   {alert}
@@ -319,35 +343,37 @@ LOGIN_TMPL = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Login – AttendPro HRMS</title>
+<title>Login - Gainup Engineers HRMS</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 {{ CSS|safe }}
 <style>
 body{display:flex;min-height:100vh}
-.login-left{flex:1;background:#0F172A;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:50px 36px;position:relative;overflow:hidden}
-.login-left::before{content:'';position:absolute;width:380px;height:380px;background:radial-gradient(circle,rgba(108,99,255,.25) 0%,transparent 70%);top:-80px;right:-80px;border-radius:50%}
-.login-left::after{content:'';position:absolute;width:280px;height:280px;background:radial-gradient(circle,rgba(255,101,132,.15) 0%,transparent 70%);bottom:-60px;left:-60px;border-radius:50%}
-.login-illo{position:relative;z-index:1;text-align:center}
-.login-illo .big-i{font-size:70px;color:#6C63FF;opacity:.85;margin-bottom:22px;filter:drop-shadow(0 8px 22px rgba(108,99,255,.4))}
+.login-left{flex:1;background:linear-gradient(135deg,#081827 0%,#0D5E93 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:50px 36px;position:relative;overflow:hidden}
+.login-left::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(0deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:44px 44px;opacity:.45}
+.login-left::after{content:'';position:absolute;width:420px;height:420px;border:1px solid rgba(255,255,255,.14);border-radius:50%;right:-140px;bottom:-140px}
+.login-illo{position:relative;z-index:1;text-align:left;max-width:520px}
+.login-illo .big-i{width:190px;background:#fff;border-radius:8px;padding:8px;margin-bottom:28px;box-shadow:0 18px 50px rgba(2,8,23,.24)}
+.login-illo .big-i img{display:block;width:100%;height:auto}
 .login-illo h2{font-size:24px;font-weight:800;color:#fff;margin-bottom:8px}
-.login-illo p{color:rgba(255,255,255,.4);font-size:13px;max-width:260px}
+.login-illo p{color:rgba(255,255,255,.68);font-size:13px;max-width:360px;line-height:1.7}
 .login-right{width:440px;display:flex;align-items:center;justify-content:center;padding:36px}
 .login-box{width:100%}
 .login-logo{display:flex;align-items:center;gap:11px;margin-bottom:30px}
-.login-logo-icon{width:42px;height:42px;background:#6C63FF;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:19px}
-.login-logo h1{font-size:19px;font-weight:800}
+.login-logo-img{width:150px;height:auto;display:block}
+.login-logo-icon{width:42px;height:42px;background:#0D5E93;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:19px}
+.login-logo h1{font-size:19px;font-weight:800;color:#0B4E7A}
 .login-logo span{font-size:10px;color:#94A3B8}
 .login-title{font-size:22px;font-weight:800;margin-bottom:5px}
 .login-sub{font-size:12.5px;color:#64748B;margin-bottom:28px}
 .login-footer{margin-top:20px;text-align:center;font-size:11.5px;color:#94A3B8}
-@media(max-width:768px){.login-left{display:none}.login-right{width:100%}}
+@media(max-width:768px){body{background:#F7FAFC}.login-left{display:none}.login-right{width:100%;min-height:100vh;padding:24px}.login-logo-img{width:140px}}
 </style>
 </head>
 <body>
 <div class="login-left">
   <div class="login-illo">
-    <div class="big-i"><i class="fas fa-building"></i></div>
-    <h2>Streamline HR Operations</h2>
+    <div class="big-i"><img src="/static/gainup_engineers_logo.jpg" alt="Gainup Engineers"/></div>
+    <h2>People operations for Gainup Engineers</h2>
     <p>Attendance tracking, salary management and employee records — all in one place.</p>
     <div style="margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
       <div style="background:rgba(255,255,255,.06);border-radius:11px;padding:10px 18px;text-align:center">
@@ -368,8 +394,7 @@ body{display:flex;min-height:100vh}
 <div class="login-right">
   <div class="login-box">
     <div class="login-logo">
-      <div class="login-logo-icon"><i class="fas fa-building"></i></div>
-      <div><h1>AttendPro</h1><span>HRMS System v1.0</span></div>
+      <img class="login-logo-img" src="/static/gainup_engineers_logo.jpg" alt="Gainup Engineers"/>
     </div>
     <h2 class="login-title">Welcome back 👋</h2>
     <p class="login-sub">Sign in to access the admin dashboard</p>
@@ -379,14 +404,14 @@ body{display:flex;min-height:100vh}
         <label>Username</label>
         <div style="position:relative">
           <i class="fas fa-user" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#CBD5E1;font-size:12px"></i>
-          <input type="text" name="username" class="fc" style="padding-left:34px" placeholder="Enter username" value="admin" required/>
+          <input type="text" name="username" class="fc" style="padding-left:34px" placeholder="Enter username" autocomplete="username" required/>
         </div>
       </div>
       <div class="fg">
         <label>Password</label>
         <div style="position:relative">
           <i class="fas fa-lock" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#CBD5E1;font-size:12px"></i>
-          <input type="password" name="password" id="pwd" class="fc" style="padding-left:34px;padding-right:38px" placeholder="Enter password" value="admin123" required/>
+          <input type="password" name="password" id="pwd" class="fc" style="padding-left:34px;padding-right:38px" placeholder="Enter password" autocomplete="current-password" required/>
           <button type="button" onclick="togglePwd()" style="position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#CBD5E1"><i class="fas fa-eye" id="pwd-eye"></i></button>
         </div>
       </div>
@@ -394,7 +419,6 @@ body{display:flex;min-height:100vh}
         <i class="fas fa-sign-in-alt"></i> Sign In
       </button>
     </form>
-    <div class="login-footer">Default credentials: <strong>admin</strong> / <strong>admin123</strong></div>
   </div>
 </div>
 <script>function togglePwd(){const i=document.getElementById('pwd'),e=document.getElementById('pwd-eye');i.type=i.type==='password'?'text':'password';e.className=i.type==='password'?'fas fa-eye':'fas fa-eye-slash';}</script>
@@ -540,6 +564,59 @@ EMPLOYEE_LIST_TMPL = """
   </div>
   {% endif %}
 </div>
+"""
+
+
+# Admin users
+ADMIN_USERS_TMPL = """
+<div style="display:grid;grid-template-columns:minmax(260px,360px) 1fr;gap:18px" class="admin-users-grid">
+  <div class="card">
+    <div class="card-header">
+      <div><div class="card-title">Create Login User</div><div class="card-sub">New users can sign in and view the HRMS</div></div>
+    </div>
+    {% if form_error %}<div class="alert alert-danger" style="margin:0 0 16px;border-radius:8px"><i class="fas fa-exclamation-circle"></i> {{ form_error }}</div>{% endif %}
+    <form method="POST" action="/admin/users">
+      <div class="fg">
+        <label>Username</label>
+        <input class="fc" type="text" name="username" value="{{ fd.username if fd else '' }}" placeholder="e.g. siteadmin" autocomplete="off" required/>
+      </div>
+      <div class="fg">
+        <label>Email</label>
+        <input class="fc" type="email" name="email" value="{{ fd.email if fd else '' }}" placeholder="user@gainupengineers.com" autocomplete="off" required/>
+      </div>
+      <div class="fg">
+        <label>Password</label>
+        <input class="fc" type="password" name="password" placeholder="Set a secure password" minlength="6" autocomplete="new-password" required/>
+      </div>
+      <button class="btn btn-primary w-full" type="submit"><i class="fas fa-user-plus"></i> Create User</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div><div class="card-title">Application Users</div><div class="card-sub">{{ admins|length }} login accounts</div></div>
+      <span class="badge b-info">Admin Access</span>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>User</th><th>Email</th><th>Status</th><th>Created</th></tr></thead>
+        <tbody>
+        {% for adm in admins %}
+        <tr>
+          <td><div class="emp-cell"><div class="emp-av">{{ adm.username[0]|upper }}</div><div><div class="emp-name">{{ adm.username }}</div><div class="emp-id">{% if adm.id == current_admin_id %}Current session{% else %}Login user{% endif %}</div></div></div></td>
+          <td>{{ adm.email }}</td>
+          <td>{% if adm.is_active %}<span class="badge b-success">Active</span>{% else %}<span class="badge b-danger">Inactive</span>{% endif %}</td>
+          <td>{{ adm.created_at.strftime('%d %b %Y') if adm.created_at else '-' }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" style="text-align:center;padding:28px;color:#94A3B8">No users found</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<style>@media(max-width:900px){.admin-users-grid{grid-template-columns:1fr!important}}</style>
 """
 
 
@@ -889,7 +966,7 @@ SALARY_SLIP_TMPL = """
   <div class="slip-hdr">
     <div style="display:flex;align-items:flex-start;justify-content:space-between">
       <div>
-        <div style="font-size:22px;font-weight:800;margin-bottom:4px">AttendPro HRMS</div>
+        <div style="font-size:22px;font-weight:800;margin-bottom:4px">Gainup Engineers HRMS</div>
         <div style="font-size:12px;opacity:.7">Salary Slip — {{ month_name }} {{ record.year }}</div>
       </div>
       <div style="text-align:right">
@@ -946,7 +1023,7 @@ SALARY_SLIP_TMPL = """
     </div>
 
     <div style="margin-top:20px;padding-top:16px;border-top:1px dashed #E2E8F0;display:flex;justify-content:space-between;font-size:11px;color:#94A3B8">
-      <span>Generated by AttendPro HRMS</span>
+      <span>Generated by Gainup Engineers HRMS</span>
       <span>This is a computer-generated payslip and does not require a signature.</span>
     </div>
   </div>

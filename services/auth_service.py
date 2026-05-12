@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from typing import Optional
+from fastapi import HTTPException
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
@@ -36,6 +37,29 @@ def authenticate_admin(db: Session, username: str, password: str) -> Optional[mo
     admin = db.query(models.Admin).filter(models.Admin.username == username).first()
     if not admin or not verify_password(password, admin.hashed_password):
         return None
+    return admin
+
+
+def list_admins(db: Session):
+    return db.query(models.Admin).order_by(models.Admin.created_at.desc()).all()
+
+
+def create_admin(db: Session, username: str, email: str, password: str) -> models.Admin:
+    username = username.strip()
+    email = email.strip().lower()
+    if db.query(models.Admin).filter(models.Admin.username == username).first():
+        raise HTTPException(status_code=400, detail="Username already exists")
+    if db.query(models.Admin).filter(models.Admin.email == email).first():
+        raise HTTPException(status_code=400, detail="Email already exists")
+    admin = models.Admin(
+        username=username,
+        email=email,
+        hashed_password=hash_password(password),
+        is_active=True,
+    )
+    db.add(admin)
+    db.commit()
+    db.refresh(admin)
     return admin
 
 
