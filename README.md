@@ -35,7 +35,7 @@ Render should use:
 
 ```bash
 pip install -r requirements.txt
-uvicorn main:app --host 0.0.0.0 --port $PORT
+python -m uvicorn main:app --host 0.0.0.0 --port $PORT
 ```
 
 Health check path:
@@ -52,6 +52,27 @@ SECRET_KEY
 ADMIN_USERNAME
 ADMIN_PASSWORD
 ADMIN_EMAIL
+```
+
+Render path:
+
+```text
+Render Dashboard -> gainup-hrms -> Environment -> Add Environment Variable
+```
+
+Use your live app URL only for viewing the app:
+
+```text
+https://gainup-hrms.onrender.com
+```
+
+For GitHub auto-deploy, create a Render deploy hook and save it as a GitHub secret:
+
+```text
+Render Dashboard -> gainup-hrms -> Settings -> Deploy Hook -> Create/Copy hook URL
+GitHub repository -> Settings -> Secrets and variables -> Actions -> New repository secret
+Name: RENDER_DEPLOY_HOOK_URL
+Value: the Render deploy hook URL, not https://gainup-hrms.onrender.com
 ```
 
 ## GitHub Pages
