@@ -1,24 +1,37 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
-from fastapi.responses import RedirectResponse
-from fastapi.middleware.cors import CORSMiddleware
+import logging
 
-from database import engine, Base
-from routes import auth, employees, attendance, salary, dashboard
-import models  # noqa – registers all ORM models
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
+
+from database import Base, engine
+import models  # noqa: F401 - registers all ORM models
+from routes import attendance, auth, dashboard, employees, salary
+
+
+logger = logging.getLogger("gainup_hrms")
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Create tables then seed demo data
-    Base.metadata.create_all(bind=engine)
-    from database import SessionLocal
-    from services.seed_service import seed
-    db = SessionLocal()
+    app.state.database_ready = False
     try:
-        seed(db)
-    finally:
-        db.close()
+        Base.metadata.create_all(bind=engine)
+        from database import SessionLocal
+        from services.seed_service import seed
+
+        db = SessionLocal()
+        try:
+            seed(db)
+            app.state.database_ready = True
+            logger.info("Database initialization completed.")
+        finally:
+            db.close()
+    except Exception:
+        logger.exception(
+            "Database initialization failed. Check DATABASE_URL, Supabase password, host, and sslmode=require."
+        )
     yield
 
 
@@ -53,9 +66,13 @@ async def root():
 
 @app.get("/healthz")
 async def healthz():
-    return {"status": "ok"}
+    return {
+        "status": "ok",
+        "database_ready": getattr(app.state, "database_ready", False),
+    }
 
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

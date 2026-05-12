@@ -1,13 +1,19 @@
 import os
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 
 def _database_url() -> str:
     url = os.getenv(
         "DATABASE_URL",
-        "postgresql://hrms_user:hrms_pass@localhost:5432/hrms_db",
+        "sqlite:///./hrms.db",
     )
     if url.startswith("postgres://"):
-        return url.replace("postgres://", "postgresql://", 1)
+        url = url.replace("postgres://", "postgresql://", 1)
+    if "supabase" in url and "sslmode=" not in url:
+        parts = urlsplit(url)
+        query = dict(parse_qsl(parts.query, keep_blank_values=True))
+        query["sslmode"] = "require"
+        url = urlunsplit((parts.scheme, parts.netloc, parts.path, urlencode(query), parts.fragment))
     return url
 
 class Settings:
